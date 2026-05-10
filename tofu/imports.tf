@@ -29,6 +29,11 @@ import {
 }
 
 import {
+  to = azurerm_role_assignment.loki_storage_blob_contributor
+  id = "/subscriptions/aee0cbd2-8074-4001-b610-0f8edb4eaa3c/resourceGroups/infra/providers/Microsoft.Storage/storageAccounts/romainelokilogs/providers/Microsoft.Authorization/roleAssignments/9327737eefa69cd3abe3ae8d2e6c6130"
+}
+
+import {
   to = azurerm_key_vault_secret.grafana_admin_password
   id = "https://romaine-kv.vault.azure.net/secrets/grafana-admin-password/3281e7fb9ca54dd0ba874d245673a909"
 }
