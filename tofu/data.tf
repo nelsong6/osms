@@ -19,7 +19,6 @@ data "terraform_remote_state" "infra_bootstrap" {
     storage_account_name = "nelsontofu"
     container_name       = "tfstate"
     key                  = "infra-bootstrap.tfstate"
-    use_oidc             = true
     subscription_id      = data.azurerm_client_config.current.subscription_id
     tenant_id            = data.azurerm_client_config.current.tenant_id
     client_id            = data.azurerm_client_config.current.client_id

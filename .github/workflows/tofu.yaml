@@ -40,39 +40,21 @@ jobs:
           subscription-id: ${{ vars.ARM_SUBSCRIPTION_ID }}
 
       - name: Init
-        env:
-          ARM_USE_OIDC: true
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
         run: tofu init
 
       - name: Format
         run: tofu fmt -check
 
       - name: Validate
-        env:
-          ARM_USE_OIDC: true
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
         run: tofu validate
 
       - name: Plan
         env:
-          ARM_USE_OIDC: true
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
           TF_VAR_cluster_subscription_id: ${{ vars.CLUSTER_ARM_SUBSCRIPTION_ID }}
         run: tofu plan -out=tfplan
 
       - name: Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
-          ARM_USE_OIDC: true
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
           TF_VAR_cluster_subscription_id: ${{ vars.CLUSTER_ARM_SUBSCRIPTION_ID }}
         run: tofu apply -auto-approve tfplan
