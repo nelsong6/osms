@@ -48,7 +48,7 @@ resource "azurerm_role_assignment" "loki_storage_blob_contributor" {
 }
 
 resource "azurerm_federated_identity_credential" "loki" {
-  name                = "aks-loki"
+  name                = "aks-cluster-loki"
   resource_group_name = data.azurerm_resource_group.main.name
   parent_id           = azurerm_user_assigned_identity.loki.id
   audience            = ["api://AzureADTokenExchange"]

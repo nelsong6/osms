@@ -48,6 +48,10 @@ resource "azurerm_key_vault_secret" "grafana_admin_password" {
   name         = "grafana-admin-password"
   value        = random_password.grafana_admin.result
   key_vault_id = data.azurerm_key_vault.main.id
+
+  lifecycle {
+    ignore_changes = [value]
+  }
 }
 
 output "grafana_client_id" {
