@@ -37,9 +37,9 @@ grafana:
       auto_login: false
       client_authentication: client_secret_post
       scopes: openid email profile
-      auth_url: https://login.microsoftonline.com/2236b5e4-81d2-4d82-bde5-17b1037999ea/oauth2/v2.0/authorize
-      token_url: https://login.microsoftonline.com/2236b5e4-81d2-4d82-bde5-17b1037999ea/oauth2/v2.0/token
-      allowed_organizations: 2236b5e4-81d2-4d82-bde5-17b1037999ea
+      auth_url: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+      token_url: https://login.microsoftonline.com/common/oauth2/v2.0/token
+      allowed_domains: romaine.life
       role_attribute_strict: false
       allow_assign_grafana_admin: false
       skip_org_role_sync: false
