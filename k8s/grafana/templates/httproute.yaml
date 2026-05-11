@@ -18,6 +18,26 @@ spec:
     - backendRefs:
         - group: ""
           kind: Service
+          name: grafana-oauth2-proxy
+          port: 4180
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /login/azuread
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: grafana-oauth2-proxy
+          port: 4180
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /oauth2
+    - backendRefs:
+        - group: ""
+          kind: Service
           name: grafana
           port: 80
           weight: 1
