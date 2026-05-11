@@ -18,8 +18,8 @@ spec:
     - backendRefs:
         - group: ""
           kind: Service
-          name: grafana
-          port: 80
+          name: grafana-oauth2-proxy
+          port: 4180
           weight: 1
       matches:
         - path:

@@ -30,33 +30,17 @@ grafana:
       check_for_updates: false
     auth:
       disable_login_form: true
-    auth.azuread:
-      name: Entra ID
+      signout_redirect_url: /oauth2/sign_out
+    auth.proxy:
       enabled: true
-      allow_sign_up: true
-      auto_login: false
-      client_authentication: client_secret_post
-      scopes: openid email profile
-      auth_url: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
-      token_url: https://login.microsoftonline.com/common/oauth2/v2.0/token
-      allowed_domains: romaine.life
-      role_attribute_strict: false
-      allow_assign_grafana_admin: false
-      skip_org_role_sync: false
-      use_pkce: true
+      header_name: X-Forwarded-Email
+      header_property: email
+      auto_sign_up: true
+      sync_ttl: 60
+      headers: Name:X-Forwarded-User Email:X-Forwarded-Email
     users:
       auto_assign_org: true
       auto_assign_org_role: Admin
-
-  envValueFrom:
-    GF_AUTH_AZUREAD_CLIENT_ID:
-      secretKeyRef:
-        name: grafana-oauth
-        key: client-id
-    GF_AUTH_AZUREAD_CLIENT_SECRET:
-      secretKeyRef:
-        name: grafana-oauth
-        key: client-secret
 
   datasources:
     datasources.yaml:
