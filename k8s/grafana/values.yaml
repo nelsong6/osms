@@ -31,8 +31,6 @@ grafana:
     analytics:
       reporting_enabled: false
       check_for_updates: false
-    log:
-      filters: oauth.generic_oauth:debug user.sync:debug authn.service:debug org.sync:debug
     auth:
       disable_login_form: false
       oauth_allow_insecure_email_lookup: true
