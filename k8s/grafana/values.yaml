@@ -1,6 +1,13 @@
 grafana:
   replicas: 1
 
+  authConfig:
+    allowedEmails:
+      - nelson@romaine.life
+      - nelson-devops-project@outlook.com
+      - brenden.owens39@gmail.com
+      - gantonski@gmail.com
+
   deploymentStrategy:
     type: Recreate
 
@@ -64,8 +71,8 @@ grafana:
         name: grafana-oauth
         key: client-secret
     GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH:
-      secretKeyRef:
-        name: grafana-oauth
+      configMapKeyRef:
+        name: grafana-auth
         key: role-attribute-path
 
   datasources:
