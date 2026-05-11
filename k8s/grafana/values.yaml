@@ -33,7 +33,6 @@ grafana:
       check_for_updates: false
     auth:
       disable_login_form: false
-      oauth_allow_insecure_email_lookup: true
     auth.generic_oauth:
       name: Microsoft
       enabled: true
