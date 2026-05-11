@@ -22,7 +22,7 @@ variable "cluster_name" {
 }
 
 variable "grafana_allowed_emails" {
-  description = "Microsoft account email addresses allowed through Grafana oauth2-proxy."
+  description = "Microsoft account email addresses allowed to sign in to Grafana."
   type        = list(string)
   default = [
     "nelson@romaine.life",
