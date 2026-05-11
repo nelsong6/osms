@@ -43,17 +43,6 @@ resource "azurerm_key_vault_secret" "grafana_oauth_client_secret" {
   key_vault_id = data.azurerm_key_vault.main.id
 }
 
-resource "azurerm_key_vault_secret" "grafana_oauth_role_attribute_path" {
-  name = "grafana-oauth-role-attribute-path"
-  value = format(
-    "contains([%s], email) && 'Admin' || contains([%s], preferred_username) && 'Admin' || contains([%s], upn) && 'Admin' || ''",
-    join(", ", [for email in var.grafana_allowed_emails : format("'%s'", lower(trimspace(email)))]),
-    join(", ", [for email in var.grafana_allowed_emails : format("'%s'", lower(trimspace(email)))]),
-    join(", ", [for email in var.grafana_allowed_emails : format("'%s'", lower(trimspace(email)))]),
-  )
-  key_vault_id = data.azurerm_key_vault.main.id
-}
-
 resource "azurerm_key_vault_secret" "grafana_admin_password" {
   name         = "grafana-admin-password"
   value        = random_password.grafana_admin.result
