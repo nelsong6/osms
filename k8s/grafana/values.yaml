@@ -40,7 +40,7 @@ grafana:
       auth_url: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
       token_url: https://login.microsoftonline.com/common/oauth2/v2.0/token
       role_attribute_strict: true
-      role_attribute_path: "(email == 'nelson@romaine.life' || preferred_username == 'nelson@romaine.life') && 'Admin' || ''"
+      role_attribute_path: "contains(['nelson@romaine.life'], email) && 'Admin' || contains(['nelson@romaine.life'], preferred_username) && 'Admin' || contains(['nelson@romaine.life'], login) && 'Admin' || contains(['nelson@romaine.life'], mail) && 'Admin' || contains(['nelson@romaine.life'], userPrincipalName) && 'Admin' || ''"
       allow_assign_grafana_admin: false
       skip_org_role_sync: false
       use_pkce: true
