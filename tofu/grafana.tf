@@ -10,10 +10,7 @@ resource "azuread_application" "grafana" {
 
   web {
     redirect_uris = [
-      "https://grafana.romaine.life/",
-      "https://grafana.romaine.life/login/azuread",
       "https://grafana.romaine.life/login/generic_oauth",
-      "https://grafana.romaine.life/oauth2/callback",
     ]
   }
 
@@ -34,11 +31,6 @@ resource "random_password" "grafana_admin" {
   special = false
 }
 
-resource "random_password" "grafana_oauth2_proxy_cookie" {
-  length  = 32
-  special = false
-}
-
 resource "azurerm_key_vault_secret" "grafana_oauth_client_id" {
   name         = "grafana-oauth-client-id"
   value        = azuread_application.grafana.client_id
@@ -51,12 +43,6 @@ resource "azurerm_key_vault_secret" "grafana_oauth_client_secret" {
   key_vault_id = data.azurerm_key_vault.main.id
 }
 
-resource "azurerm_key_vault_secret" "grafana_oauth_allowed_emails" {
-  name         = "grafana-oauth-allowed-emails"
-  value        = join("\n", [for email in var.grafana_allowed_emails : lower(trimspace(email))])
-  key_vault_id = data.azurerm_key_vault.main.id
-}
-
 resource "azurerm_key_vault_secret" "grafana_oauth_role_attribute_path" {
   name = "grafana-oauth-role-attribute-path"
   value = format(
@@ -65,12 +51,6 @@ resource "azurerm_key_vault_secret" "grafana_oauth_role_attribute_path" {
     join(", ", [for email in var.grafana_allowed_emails : format("'%s'", lower(trimspace(email)))]),
     join(", ", [for email in var.grafana_allowed_emails : format("'%s'", lower(trimspace(email)))]),
   )
-  key_vault_id = data.azurerm_key_vault.main.id
-}
-
-resource "azurerm_key_vault_secret" "grafana_oauth_cookie_secret" {
-  name         = "grafana-oauth-cookie-secret"
-  value        = random_password.grafana_oauth2_proxy_cookie.result
   key_vault_id = data.azurerm_key_vault.main.id
 }
 
