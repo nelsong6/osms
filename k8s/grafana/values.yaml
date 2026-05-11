@@ -33,24 +33,20 @@ grafana:
       check_for_updates: false
     auth:
       disable_login_form: false
-    auth.proxy:
-      enabled: true
-      header_name: X-Forwarded-Email
-      header_property: email
-      auto_sign_up: true
-      sync_ttl: 60
-      headers: Name:X-Forwarded-User Email:X-Forwarded-Email
-      enable_login_token: true
-    auth.azuread:
+    auth.generic_oauth:
       name: Microsoft
       enabled: true
-      allow_sign_up: false
+      allow_sign_up: true
       auto_login: false
       client_authentication: client_secret_post
       scopes: openid email profile
+      email_attribute_path: email || preferred_username || upn
+      login_attribute_path: preferred_username || email || upn
+      name_attribute_path: name
       auth_url: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
       token_url: https://login.microsoftonline.com/common/oauth2/v2.0/token
-      role_attribute_strict: false
+      api_url: https://graph.microsoft.com/oidc/userinfo
+      role_attribute_strict: true
       allow_assign_grafana_admin: false
       skip_org_role_sync: true
       use_pkce: true
@@ -59,14 +55,18 @@ grafana:
       auto_assign_org_role: Admin
 
   envValueFrom:
-    GF_AUTH_AZUREAD_CLIENT_ID:
+    GF_AUTH_GENERIC_OAUTH_CLIENT_ID:
       secretKeyRef:
         name: grafana-oauth
         key: client-id
-    GF_AUTH_AZUREAD_CLIENT_SECRET:
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
       secretKeyRef:
         name: grafana-oauth
         key: client-secret
+    GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH:
+      secretKeyRef:
+        name: grafana-oauth
+        key: role-attribute-path
 
   datasources:
     datasources.yaml:

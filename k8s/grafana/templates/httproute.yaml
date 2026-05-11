@@ -15,27 +15,6 @@ spec:
       kind: XListenerSet
       name: grafana
   rules:
-    - filters:
-        - type: RequestRedirect
-          requestRedirect:
-            path:
-              type: ReplaceFullPath
-              replaceFullPath: /oauth2/start
-            statusCode: 302
-      matches:
-        - path:
-            type: Exact
-            value: /login/azuread
-    - backendRefs:
-        - group: ""
-          kind: Service
-          name: grafana-oauth2-proxy
-          port: 4180
-          weight: 1
-      matches:
-        - path:
-            type: PathPrefix
-            value: /oauth2
     - backendRefs:
         - group: ""
           kind: Service
